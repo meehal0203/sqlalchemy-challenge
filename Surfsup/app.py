@@ -49,13 +49,13 @@ app = Flask(__name__)
 def welcome():
     """List all available api routes."""
     return (
-        f"Welcome to the Hawaii Climate app API"
-        f"Available Routes:<br/>"
+       f"Welcome to the Hawaii Climate app API<br/>"
+        f"Here are all the Available Routes:<br/>"
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
         f"/api/v1.0/<start>(enter as YYYY-MM-DD)<br/>"
-        f"/api/v1.0/<start>/<end>(enter as YYYY-MM-DD/YYYY-MM-DD)<br/>"
+        f"/api/v1.0/<start>/<end>(enter as YYYY-MM-DD/YYYY-MM-DD)<br/>")
         
 #2 Convert the query results from your precipitation analysis (i.e. retrieve only the last 12 months of data) to a dictionary 
 # using date as the key and prcp as the value.
