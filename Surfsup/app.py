@@ -8,7 +8,7 @@ from sqlalchemy.inspection import inspect
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from flask import Flask, jsonify
-import re
+
 
 
 
@@ -54,8 +54,8 @@ def welcome():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/start<br/>"
-        f"/api/v1.0/start/end"
+        f"/api/v1.0/start (enter as YYYY-MM-DD)<br/>"
+        f"/api/v1.0/start/end (enter as YYYY-MM-DD/YYYY-MM-DD)"
                )
 
 #2 Convert the query results from your precipitation analysis (i.e. retrieve only the last 12 months of data) to a dictionary 
@@ -142,6 +142,15 @@ def tobs():
 
 #5 Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start or   start-end range.
 # For a specified start, calculate TMIN, TAVG, and TMAX for all the dates greater than or equal to the start date.
+# @app.route("/api/v1.0/<start>")
+# def start_temp(start):
+#     """Return TMIN, TAVG, TMAX for dates greater than or equal to start date."""
+#     from datetime import datetime
+
+#     try:  # Attempt to convert input to datetime
+#         start = datetime.strptime(start, "%Y-%m-%d")
+#     except ValueError:  # Handle invalid date format
+#         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
 @app.route("/api/v1.0/<start>")
 def start_temp(start):
@@ -165,6 +174,16 @@ def start_temp(start):
 
 # For a specified start date and end date, calculate TMIN, TAVG, and TMAX for the
 # dates from the start date to the end date, inclusive.
+# @app.route("/api/v1.0/<start>/<end>")
+# def start_end_temp(start, end):
+#     """Return TMIN, TAVG, TMAX for dates between start and end date (inclusive)."""
+#     from datetime import datetime
+
+#     try:
+#         start = datetime.strptime(start, "%Y-MM-DD")
+#         end = datetime.strptime(end, "%Y-MM-DD")
+#     except ValueError:
+#         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
 
 @app.route("/api/v1.0/<start>/<end>")
@@ -188,6 +207,8 @@ def start_end_temp(start, end):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
 
 
 
