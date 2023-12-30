@@ -143,8 +143,6 @@ def tobs():
 #5 Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start or   start-end range.
 # For a specified start, calculate TMIN, TAVG, and TMAX for all the dates greater than or equal to the start date.
 
-
-
 @app.route("/api/v1.0/<start>")
 def start_temp(start):
      # Create our session (link) from Python to the DB
