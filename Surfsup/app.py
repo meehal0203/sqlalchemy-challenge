@@ -54,8 +54,9 @@ def welcome():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/start (enter as YYYY-MM-DD)<br/>"
-        f"/api/v1.0/start/end (enter as YYYY-MM-DD/YYYY-MM-DD)"
+        f"/api/v1.0/start<br/>"
+        f"/api/v1.0/start/end<br/>"
+        f"Please enter start date as MMDDYYYY and start/end date as MMDDYYYY/MMDDYYYY"
                )
 
 #2 Convert the query results from your precipitation analysis (i.e. retrieve only the last 12 months of data) to a dictionary 
@@ -84,9 +85,6 @@ def precipitation():
         prcp_dict = dict(results)
         
         return jsonify(prcp_dict)
-        
-# if __name__ == "__main__":
-#     app.run(debug=True)
 
 
 #3 Return a JSON list of stations from the dataset
@@ -142,26 +140,25 @@ def tobs():
 
 #5 Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start or   start-end range.
 # For a specified start, calculate TMIN, TAVG, and TMAX for all the dates greater than or equal to the start date.
-# @app.route("/api/v1.0/<start>")
-# def start_temp(start):
-#     """Return TMIN, TAVG, TMAX for dates greater than or equal to start date."""
-#     from datetime import datetime
+from datetime import datetime
 
-#     try:  # Attempt to convert input to datetime
-#         start = datetime.strptime(start, "%Y-%m-%d")
-#     except ValueError:  # Handle invalid date format
-#         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
+
+
+
+
 
 @app.route("/api/v1.0/<start>")
 def start_temp(start):
-     # Create our session (link) from Python to the DB
-        
-    session = Session(engine)
-    query = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
-              filter(Measurement.date >= start).all()
-    
-    session.close()
+     # convert to datetime
+    start = datetime.strptime(start, "%m%d%Y")
+    # Create our session (link) from Python to the DB
 
+    session = Session(engine)
+    sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
+    query = session.query(*sel).filter(Measurement.date >= start).all()
+            
+    session.close()
+    
     temps = []
     for min_temp, avg_temp, max_temp in query:
         temps_dict = {}
@@ -169,29 +166,22 @@ def start_temp(start):
         temps_dict['Average Temperature'] = avg_temp
         temps_dict['Maximum Temperature'] = max_temp
         temps.append(temps_dict)
-
+    print(query)
     return jsonify(temps)
 
-# For a specified start date and end date, calculate TMIN, TAVG, and TMAX for the
-# dates from the start date to the end date, inclusive.
-# @app.route("/api/v1.0/<start>/<end>")
-# def start_end_temp(start, end):
-#     """Return TMIN, TAVG, TMAX for dates between start and end date (inclusive)."""
-#     from datetime import datetime
 
-#     try:
-#         start = datetime.strptime(start, "%Y-MM-DD")
-#         end = datetime.strptime(end, "%Y-MM-DD")
-#     except ValueError:
-#         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
 
 @app.route("/api/v1.0/<start>/<end>")
 def start_end_temp(start, end):
+     # convert to datetime
+    start = datetime.strptime(start, "%m%d%Y")
+    end = datetime.strptime(end, "%m%d%Y")
      # Create our session (link) from Python to the DB
     session = Session(engine)
-    query = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
-              filter(Measurement.date >= start).filter(Measurement.date <= end).all()
+    sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
+    query = session.query(*sel).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
+
     session.close()
 
     temps = []
