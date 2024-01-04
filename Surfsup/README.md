@@ -7,7 +7,7 @@ The following sections outline the steps taken to accomplish this task.
 
 In this section, I’ll use Python and SQLAlchemy to do a basic climate analysis and data exploration of the climate database. Specifically,  SQLAlchemy ORM queries, Pandas, and Matplotlib will be used. To do so, I completed the following steps:
 
-* Used the provided files (climate_starter.ipynb and hawaii.sqlite) to complete climate analysis and data exploration.
+* Used theprovided files (climate_starter.ipynb and hawaii.sqlite) to complete climate analysis and data exploration.
 
 * Used the SQLAlchemy create_engine() function to connect to your SQLite database.
 
@@ -92,5 +92,5 @@ Start at the homepage.
 * For a specified start date and end date, calculate TMIN, TAVG, and TMAX for the dates from the start date to the end date, inclusive.
 
 
-###For this assignment, I utilized Stack Overflow and BCS learning assistant.
+
 
