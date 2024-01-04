@@ -128,6 +128,9 @@ def tobs():
     .filter(Measurement.date >= '2016-08-23').all()
 
     session.close()
+
+    # return jsonified list of min, avg and max functions
+
     temp_obs = []
     for date, tobs in query:
         tobs_dict = {}
@@ -151,14 +154,16 @@ from datetime import datetime
 def start_temp(start):
      # convert to datetime
     start = datetime.strptime(start, "%m%d%Y")
-    # Create our session (link) from Python to the DB
 
+    # Create our session (link) from Python to the DB
     session = Session(engine)
+    # Create query using a list to allow to run at the same time
+
     sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
     query = session.query(*sel).filter(Measurement.date >= start).all()
             
     session.close()
-    
+    # return jsonified list of min, avg and max functions
     temps = []
     for min_temp, avg_temp, max_temp in query:
         temps_dict = {}
@@ -177,8 +182,10 @@ def start_end_temp(start, end):
      # convert to datetime
     start = datetime.strptime(start, "%m%d%Y")
     end = datetime.strptime(end, "%m%d%Y")
+
      # Create our session (link) from Python to the DB
     session = Session(engine)
+    # Create query using a list to allow to run at the same time
     sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
     query = session.query(*sel).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
 
