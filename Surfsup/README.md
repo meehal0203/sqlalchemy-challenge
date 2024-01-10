@@ -5,6 +5,8 @@ The following sections outline the steps taken to accomplish this task.
 
 # Part 1: Analyze and Explore the Climate Data
 
+[Link to Part 1](climate_starter.ipynb)
+
 In this section, I’ll use Python and SQLAlchemy to do a basic climate analysis and data exploration of the climate database. Specifically,  SQLAlchemy ORM queries, Pandas, and Matplotlib will be used. To do so, I completed the following steps:
 
 * Used theprovided files (climate_starter.ipynb and hawaii.sqlite) to complete climate analysis and data exploration.
@@ -18,6 +20,8 @@ In this section, I’ll use Python and SQLAlchemy to do a basic climate analysis
 * Performed a precipitation analysis and then a station analysis by completing the steps in the following two subsections.
 
 ## Precipitation Analysis
+
+[Link to Part 2](app.py)
 
 * Find the most recent date in the dataset.
 
