@@ -3,6 +3,9 @@
 This assignment will involve performing a climate analysis on Honolulu, Hawaii in order to determine optimal times for vacations and trip planning.
 The following sections outline the steps taken to accomplish this task.
 
+![image](https://github.com/meehal0203/sqlalchemy-challenge/assets/146681542/e6f83b8e-0321-46ca-b5f8-416a696db27e)
+
+
 # Part 1: Analyze and Explore the Climate Data
 
 In this section, I’ll use Python and SQLAlchemy to do a basic climate analysis and data exploration of the climate database. Specifically,  SQLAlchemy ORM queries, Pandas, and Matplotlib will be used. To do so, I completed the following steps:
